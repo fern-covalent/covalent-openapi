@@ -1,6 +1,6 @@
-# {Company} {Api Name} OpenAPI spec
+# Covalent OpenAPI spec
 
-This repository contains the [OpenAPI description](/openapi.yml) for <{docs_url}>.
+This repository contains the [OpenAPI description](/openapi.yml) for [Covalent](https://www.covalenthq.com/docs/api/#/0/0/USD/1).
 
 ## What is OpenAPI?
 
@@ -10,4 +10,4 @@ From the [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification):
 
 ## Issues
 
-Feel free to [leave an issue](https://github.com/fern-{company}/{company}-openapi/issues) on this repo.
+Feel free to [leave an issue](https://github.com/fern-covalent/covalent-openapi/issues) on this repo.
