@@ -23,12 +23,18 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          examples:
+            Example1:
+              value: 1
         - name: wallet_address
           in: path
           required: true
           schema:
             type: string
+          examples:
+            Example1:
+              value: demo.eth
         - name: nft
           in: query
           description: >-
@@ -59,6 +65,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClassABalanceResponseType'
+              examples:
+                Example1:
+                  value:
+                    address: '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de'
+                    updated_at: '2023-01-25T04:17:23.493591785Z'
+                    next_update_at: '2023-01-25T04:22:23.493592426Z'
+                    quote_currency: USD
+                    chain_id: 1
+                    items:
+                      - contract_decimals: 18
+                        contract_name: Frontier Token
+                        contract_ticker_symbol: FRONT
+                        contract_address: '0xf8c3527cc04340b208c854e985240c02f7b7793f'
+                        supports_erc:
+                          - erc20
+                        logo_url: >-
+                          https://logos.covalenthq.com/tokens/1/0xf8c3527cc04340b208c854e985240c02f7b7793f.png
+                        last_transferred_at: '2022-09-27T15:29:11Z'
+                        native_token: false
+                        type: cryptocurrency
+                        balance: '4843997835959514312853'
+                        balance_24h: '4843997835959514312853'
+                        quote_rate: 0.212
+                        quote_rate_24h: 0.21129668
+                        quote: 1026.9275
+                        quote_24h: 1023.5206
       summary: Get token balances for address
       security: &ref_0
         - BasicAuth: []
@@ -79,12 +111,18 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          examples:
+            Example1:
+              value: 1
         - name: wallet_address
           in: path
           required: true
           schema:
             type: string
+          examples:
+            Example1:
+              value: demo.eth
         - name: quote-currency
           in: query
           description: The requested fiat currency.
@@ -106,6 +144,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClassAHistoricalPortfolioResponse'
+              examples:
+                Example1:
+                  value:
+                    address: '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de'
+                    updated_at: '2023-01-25T02:01:49.099038051Z'
+                    next_update_at: '2023-01-25T02:06:49.099038382Z'
+                    quote_currency: USD
+                    chain_id: 1
+                    items:
+                      - contract_decimals: 18
+                        contract_name: Frontier Token
+                        contract_ticker_symbol: FRONT
+                        contract_address: '0xf8c3527cc04340b208c854e985240c02f7b7793f'
+                        logo_url: >-
+                          https://logos.covalenthq.com/tokens/1/0xf8c3527cc04340b208c854e985240c02f7b7793f.png
+                        holdings:
+                          - timestamp: '2023-01-25T00:00:00Z'
+                            quote_rate: 0.20990574
+                            open:
+                              balance: '4843997835959514312853'
+                              quote: 1016.783
+                            high:
+                              balance: '4843997835959514312853'
+                              quote: 1016.783
+                            low:
+                              balance: '4843997835959514312853'
+                              quote: 1016.783
+                            close:
+                              balance: '4843997835959514312853'
+                              quote: 1016.783
       summary: Get Historic Portfolio value over time
       security: *ref_0
   /v1/{chain_id}/tokens/{contract_address}/nft_token_ids/:
@@ -125,12 +193,18 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+          examples:
+            Example1:
+              value: 1
         - name: contract_address
           in: path
           required: true
           schema:
             type: string
+          examples:
+            Example1:
+              value: '0xe4605d46fd0b3f8329d936a8b258d69276cba264'
         - name: page_number
           in: query
           description: The specific page to be returned.
@@ -150,6 +224,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClassATokenIdResponseType'
+              examples:
+                Example1:
+                  value:
+                    updated_at: '2023-01-25T04:24:41.268693068Z'
+                    items:
+                      - contract_decimals: 0
+                        contract_name: Meme Ltd.
+                        contract_ticker_symbol: MEMES
+                        contract_address: '0xe4605d46fd0b3f8329d936a8b258d69276cba264'
+                        supports_erc: null
+                        logo_url: >-
+                          https://logos.covalenthq.com/tokens/0xe4605d46fd0b3f8329d936a8b258d69276cba264.png
+                        token_id: '1'
+                    pagination:
+                      has_more: true
+                      page_number: 0
+                      page_size: 100
       summary: Get NFT Token IDs for contract
       security: *ref_0
   /v1/pricing/historical_by_address/{chain_id}/{quote_currency}/{contract_address}/nft_token_ids/:
@@ -208,86 +299,111 @@ components:
         address:
           type: string
           description: The requested wallet address.
+          example: '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de'
         updated_at:
           type: string
           format: date-time
           description: The updated time in UTC.
+          example: '2023-01-25T04:17:23.493591785Z'
         next_update_at:
           type: string
           format: date-time
           description: The next updated time in UTC.
+          example: '2023-01-25T04:22:23.493592426Z'
         quote_currency:
           type: string
           description: The requested fiat currency.
+          example: USD
         items:
           type: array
           items:
             $ref: '#/components/schemas/ClassAWalletBalanceItem'
+        chain_id:
+          type: integer
+          example: 1
       required:
         - address
         - updated_at
         - next_update_at
         - quote_currency
         - items
+        - chain_id
     ClassAWalletBalanceItem:
       type: object
       properties:
         contract_decimals:
           type: integer
           description: Smart contract decimals.
+          example: 18
         contract_name:
           type: string
           description: Smart contract name.
+          example: Frontier Token
         contract_ticker_symbol:
           type: string
           description: Smart contract ticker symbol.
+          example: FRONT
         contract_address:
           type: string
           description: Smart contract address.
+          example: '0xf8c3527cc04340b208c854e985240c02f7b7793f'
         supports_erc:
           type: array
           items:
             type: string
           description: |
             The standard interface(s) supported for this token, eg: `ERC-20`.
+          example:
+            - erc20
         logo_url:
           type: string
           description: Smart contract URL.
+          example: >-
+            https://logos.covalenthq.com/tokens/1/0xf8c3527cc04340b208c854e985240c02f7b7793f.png
         last_transferred_at:
           type: string
           format: date-time
           description: Last transferred date for a wallet.
+          example: '2022-09-27T15:29:11Z'
         native_token:
           type: boolean
           description: >
             Indicates if a token is the chain's native gas token, eg: ETH on
             Ethereum.
+          example: false
         type:
           type: string
           description: One of `cryptocurrency`, `stablecoin`, `nft` or `dust`.
+          example: cryptocurrency
         balance:
-          type: integer
+          type: string
           description: >-
             The asset balance. Use `contract_decimals` to scale this balance for
             display purposes.
+          example: '4843997835959514312853'
         balance_24h:
-          type: integer
+          type: string
           description: The asset balance 24 hours ago.
+          example: '4843997835959514312853'
         quote_rate:
           type: number
           format: double
           description: The current spot exchange rate in `quote-currency`.
+          example: 0.212
         quote_rate_24h:
           type: number
           format: double
           description: The spot exchange rate in `quote-currency` as of 24 hours ago.
+          example: 0.21129668
         quote:
           type: number
           format: double
           description: The current balance converted to fiat in `quote-currency`.
+          example: 1026.9275
         quote_24h:
           type: number
           format: double
+          example: 1023.5206
       required:
         - contract_decimals
         - contract_name
@@ -304,33 +420,35 @@ components:
         - quote_rate_24h
         - quote
         - quote_24h
-    ClassAINFTMetadata:
-      type: array
-      items: {}
-      description: Array of NFTs that are held under this contract.
     ClassAHistoricalPortfolioResponse:
       type: object
       properties:
         address:
           type: string
           description: The requested wallet address.
+          example: '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de'
         updated_at:
           type: string
           format: date-time
           description: The updated time in UTC.
+          example: '2023-01-25T02:01:49.099038051Z'
         next_update_at:
           type: string
           format: date-time
           description: The next updated time in UTC.
+          example: '2023-01-25T02:06:49.099038382Z'
         quote_currency:
           type: string
           description: The requested fiat currency.
+          example: USD
         chain_id:
           type: integer
           description: The requested chain ID.
+          example: 1
         items:
           type: array
-          items: {}
+          items:
+            $ref: '#/components/schemas/ClassAToken'
           description: List of tokens in portfolio
         pagination:
           $ref: '#/components/schemas/AppliedPagination'
@@ -341,22 +459,97 @@ components:
         - quote_currency
         - chain_id
         - items
-        - pagination
+    ClassAToken:
+      type: object
+      properties:
+        contract_decimals:
+          type: integer
+          description: Smart contract decimals.
+          example: 18
+        contract_name:
+          type: string
+          description: Smart contract name.
+          example: Frontier Token
+        contract_ticker_symbol:
+          type: string
+          description: Smart contract ticker symbol.
+          example: FRONT
+        contract_address:
+          type: string
+          description: Smart contract address.
+          example: '0xf8c3527cc04340b208c854e985240c02f7b7793f'
+        logo_url:
+          type: string
+          description: Smart contract URL.
+          example: >-
+            https://logos.covalenthq.com/tokens/1/0xf8c3527cc04340b208c854e985240c02f7b7793f.png
+        holdings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassAHolding'
+      required:
+        - contract_decimals
+        - contract_name
+        - contract_ticker_symbol
+        - contract_address
+        - logo_url
+        - holdings
+    ClassAHolding:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp for holding.
+        quote_rate:
+          type: number
+          format: double
+          description: Quote rate for holding.
+        open:
+          $ref: '#/components/schemas/ClassABalance'
+        high:
+          $ref: '#/components/schemas/ClassABalance'
+        low:
+          $ref: '#/components/schemas/ClassABalance'
+        close:
+          $ref: '#/components/schemas/ClassABalance'
+      required:
+        - timestamp
+        - quote_rate
+        - open
+        - high
+        - low
+        - close
+    ClassABalance:
+      type: object
+      properties:
+        balance:
+          type: string
+        quote:
+          type: number
+          format: double
+      required:
+        - balance
+        - quote
     ClassATokenIdResponse:
       type: object
       properties:
         contract_decimals:
           type: integer
           description: Smart contract decimals.
+          example: 0
         contract_name:
           type: string
           description: Smart contract name.
+          example: Meme Ltd.
         contract_ticker_symbol:
           type: string
           description: Smart contract ticker symbol.
+          example: MEMES
         contract_address:
           type: string
           description: Smart contract address.
+          example: '0xe4605d46fd0b3f8329d936a8b258d69276cba264'
         supports_erc:
           type: array
           items:
@@ -366,15 +559,17 @@ components:
         logo_url:
           type: string
           description: Smart contract URL.
+          example: >-
+            https://logos.covalenthq.com/tokens/0xe4605d46fd0b3f8329d936a8b258d69276cba264.png
         token_id:
-          type: integer
+          type: string
           description: The list of token ids under the contract address.
+          example: '1'
       required:
         - contract_decimals
         - contract_name
         - contract_ticker_symbol
         - contract_address
-        - supports_erc
         - logo_url
         - token_id
     ClassATokenIdResponseType:
@@ -384,6 +579,7 @@ components:
           type: string
           format: date-time
           description: The updated time in UTC.
+          example: '2023-01-25T04:24:41.268693068Z'
         items:
           type: array
           items:
@@ -394,7 +590,6 @@ components:
       required:
         - updated_at
         - items
-        - pagination
     AppliedPagination:
       type: object
       properties:
@@ -410,11 +605,6 @@ components:
         total_count:
           type: integer
           description: Total number of entries.
-      required:
-        - has_more
-        - page_number
-        - page_size
-        - total_count
     TokenIdResponse:
       type: object
       properties:
